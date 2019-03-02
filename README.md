@@ -1,2 +1,2 @@
 # todo
-Angular project for learn
+Angular REST project 
