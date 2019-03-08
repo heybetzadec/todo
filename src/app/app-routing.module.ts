@@ -5,13 +5,15 @@ import {WelcomeComponent} from './welcome/welcome.component';
 import {ErrorComponent} from './error/error.component';
 import {ListTodosComponent} from './list-todos/list-todos.component';
 import {RouteGuardService} from './service/route-guard.service';
+import {TodoComponent} from './todo/todo.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'welcome/:name', component: WelcomeComponent, canActivate:[RouteGuardService]},
-  {path: 'todos', component: ListTodosComponent, canActivate:[RouteGuardService]},
-  {path: '**', component: ErrorComponent, canActivate:[RouteGuardService]},
+  {path: 'welcome/:name', component: WelcomeComponent, canActivate: [RouteGuardService]},
+  {path: 'todos', component: ListTodosComponent, canActivate: [RouteGuardService]},
+  {path: 'todo/:id', component: TodoComponent, canActivate: [RouteGuardService]},
+  {path: '**', component: ErrorComponent, canActivate: [RouteGuardService]},
 ];
 
 @NgModule({
