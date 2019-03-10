@@ -30,7 +30,7 @@ export class ListTodosComponent implements OnInit {
   constructor(private todoService: TodoDataService, private router: Router) { }
 
   ngOnInit() {
-     this.todoService.retriveTodos('abeja').subscribe(
+     this.todoService.retriveAllTodos('abeja').subscribe(
       response => {
         console.log(response);
         this.todos = response;
@@ -38,8 +38,8 @@ export class ListTodosComponent implements OnInit {
     );
   }
 
-  refreshTodos(){
-    this.todoService.retriveTodos('abeja').subscribe(
+  refreshTodos() {
+    this.todoService.retriveAllTodos('abeja').subscribe(
       response => {
         console.log(response);
         this.todos = response;
@@ -59,5 +59,9 @@ export class ListTodosComponent implements OnInit {
 
   updateTodo(id: number) {
     this.router.navigate(['todo', id]);
+  }
+
+  addTodo() {
+    this.router.navigate(['todo', -1]);
   }
 }

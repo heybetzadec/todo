@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TodoDataService} from '../service/data/todo-data.service';
 import {Todo} from '../list-todos/list-todos.component';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-todo',
@@ -12,24 +12,39 @@ export class TodoComponent implements OnInit {
   id: number;
   todo: Todo;
   constructor(private todoService: TodoDataService,
-              private  route: ActivatedRoute) { }
+              private  route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
-    this.todo = {id: 0,
-      description: '',
-      done: false,
-      targetDate: new Date()
-    };
     this.id = this.route.snapshot.params.id;
-    this.todoService.retriveTodo('abeja', this.id).subscribe(
-      data => {
-        this.todo = data;
-        console.log(this.todo);
-      }
-    );
+    console.log(this.id);
+    this.todo = new Todo(this.id, '', false, new Date());
+    if (this.id != -1) {
+      this.todoService.retriveTodo('abeja', this.id).subscribe(
+        data => {
+          this.todo = data;
+          console.log(this.todo);
+        }
+      );
+    }
   }
 
   saveTodo() {
+    if (this.id === -1) {
+      this.todoService.cresateTodo('abeja', this.todo).subscribe(
+        data => {
+          console.log(data);
+          this.router.navigate(['todos']);
+        }
+      );
+    } else {
+      this.todoService.updateTodo('abeja', this.id, this.todo).subscribe(
+        data => {
+          console.log(data);
+          this.router.navigate(['todos']);
+        }
+      );
+    }
 
   }
 }
